@@ -36,6 +36,9 @@
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                             value="{{ isset($getOneTeam) ? $getOneTeam->team_id : '' }}" placeholder="Enter ID_team..."
                             name="team_id">
+                        @error('team_id')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                         {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
                         else.</small> --}}
                     </div>
@@ -43,6 +46,9 @@
                         <label for="exampleInputPassword1">Name_team</label>
                         <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Name_team..."
                             value="{{ isset($getOneTeam) ? $getOneTeam->team_name : '' }}" name="team_name">
+                        @error('team_name')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <select name="department_id" class="form-control" id="exampleInputPassword1">
@@ -56,7 +62,8 @@
                             @endif
                         </select>
                     </div>
-                    <button type="submit" onclick="return confirm('Ban co muon Update Team nay khong?')" class="btn btn-primary">Update</button>
+                    <button type="submit" onclick="return confirm('Ban co muon Update Team nay khong?')"
+                        class="btn btn-primary">Update</button>
                     <a class="btn bg-primary text-white" href="{{ route('TeamList') }}">Cancel</a>
                 </form>
             </div>

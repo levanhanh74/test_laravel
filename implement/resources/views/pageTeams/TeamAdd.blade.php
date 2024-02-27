@@ -35,13 +35,17 @@
                         <label for="exampleInputEmail1">ID_team</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                             placeholder="Enter ID_team..." name="team_id">
-                        {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
-                        else.</small> --}}
+                        @error('team_id')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Name_team</label>
                         <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Name_team..."
                             name="team_name">
+                        @error('team_name')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <select name="department_id" class="form-control" id="exampleInputPassword1">

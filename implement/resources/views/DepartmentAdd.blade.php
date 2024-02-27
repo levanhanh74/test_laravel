@@ -39,6 +39,9 @@
                         <label for="exampleInputEmail1">DepartmentId</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                             placeholder="Enter DepartmentId..." name="department_id">
+                        @error('department_id')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                         {{-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
                             else.</small> --}}
                     </div>
@@ -46,11 +49,17 @@
                         <label for="exampleInputPassword1">DepartmentName</label>
                         <input type="text" class="form-control" id="exampleInputPassword1"
                             placeholder="Enter DepartmentName..." name="department_name">
+                        @error('department_name')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Descriptions</label>
                         <input type="text" class="form-control" id="exampleInputPassword1"
                             placeholder="Enter Descriptions..." name="descriptions">
+                        @error('descriptions')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <button onclick="return confirm('Ban co muon Add Department nay khong?')" type="submit"
