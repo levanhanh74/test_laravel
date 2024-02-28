@@ -61,6 +61,12 @@ class DeparmentController extends Controller
 
     function DeleteDepartment(Request $request)
     {
+        $getOne  = $this->department->GetOneDepartment($request->id);
+        $listDepartment = $this->department->DepartmentList();
+        return view("DepartmentDelete", compact('listDepartment', 'getOne'));
+    }
+    function DeletePostDepartment(Request $request)
+    {
         if (isset($request->department_id)) {
             // Delete
             $this->department->DeleteDepartment($request->department_id);

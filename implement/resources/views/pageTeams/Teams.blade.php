@@ -59,8 +59,8 @@
                     <a href="{{ route('CreateTeam') }}" class="btn bg-primary text-white" href="">Add</a>
                     <a href="{{ route('editTeam', ['id' => isset($getOneTeam) ? $getOneTeam->team_id : '']) }}"
                         class="btn bg-primary text-white" href="">Edit</a>
-                    <button type="submit" onclick="return confirm('Have you delete team?')"
-                        class="btn btn-primary">Delete</button>
+                    <a href="{{ route('deleTeam', ['id' => isset($getOneTeam) ? $getOneTeam->team_id : '']) }}"
+                        class="btn btn-primary">Delete</a>
                 </form>
             </div>
         </div>

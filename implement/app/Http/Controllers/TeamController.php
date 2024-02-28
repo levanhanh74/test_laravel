@@ -70,6 +70,12 @@ class TeamController extends Controller
     }
     function TeamDelete(Request $request)
     {
+        $getOneTeam = $this->team->GetOneTeam($request->id);
+        $listTeam = $this->team->TeamList();
+        return view('pageTeams.TeamDelete', compact('getOneTeam', 'listTeam'));
+    }
+    function TeamPostDelete(Request $request)
+    {
         $this->team->DeleteTeam($request->team_id);
         return redirect()->route('TeamList')->with('mess', "Delete success team!");
     }
