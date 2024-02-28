@@ -62,7 +62,7 @@
                         @enderror
                     </div>
 
-                    <button onclick="return confirm('Ban co muon Add Department nay khong?')" type="submit"
+                    <button onclick="return confirm('have you add department?')" type="submit"
                         class="btn btn-primary">Submit</button>
                     <a href="{{ route('getDepartment') }}" class="btn btn-primary">Cancel</a>
                 </form>

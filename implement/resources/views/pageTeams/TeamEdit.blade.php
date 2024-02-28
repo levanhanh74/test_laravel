@@ -62,7 +62,7 @@
                             @endif
                         </select>
                     </div>
-                    <button type="submit" onclick="return confirm('Ban co muon Update Team nay khong?')"
+                    <button type="submit" onclick="return confirm('Have you Update?')"
                         class="btn btn-primary">Update</button>
                     <a class="btn bg-primary text-white" href="{{ route('TeamList') }}">Cancel</a>
                 </form>

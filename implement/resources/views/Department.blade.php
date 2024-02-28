@@ -67,7 +67,7 @@
                     </div>
 
                     <a href="{{ route('createDepartment') }}" class="btn btn-primary">Add</a>
-                    <button type="submit" onclick="return confirm('Ban co muon Delete Department nay khong?')"
+                    <button type="submit" onclick="return confirm('have you delete department?')"
                         class="btn btn-primary">Delete</button>
                     <a href="{{ route('editDepartment', ['id' => isset($oneDepartment) ? $oneDepartment->department_id : '']) }}"
                         class="btn btn-primary">Edit</a>

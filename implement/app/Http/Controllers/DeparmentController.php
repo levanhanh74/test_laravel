@@ -2,20 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Department;
+
+use App\Http\Requests\ValidateFormDepartment;
+use App\Http\Services\DepartmentService;
 use Illuminate\Http\Request;
-use PDO;
+
 
 class DeparmentController extends Controller
 {
     protected $department;
-    function __construct()
+    function __construct(DepartmentService $department)
     {
-        $this->department = new Department();
+        $this->department =  $department;
     }
     // List and create Department 
     function DepartmentList(Request $request)
     {
+
         $listDepartment = $this->department->DepartmentList();
         $oneDepartment = $this->department->GetOneDepartment($request->id);
         return view('Department', compact('listDepartment', 'oneDepartment'));
@@ -26,25 +29,15 @@ class DeparmentController extends Controller
         $listDepartment = $this->department->DepartmentList();
         return view("DepartmentAdd", compact('listDepartment'));
     }
-    function PostDepartment(Request $request)
+    function PostDepartment(ValidateFormDepartment $request)
     {
-        $rule = [
-            'department_id' => 'required|min:2',
-            'department_name' => 'required|min:2',
-            'descriptions' => 'required|min:8',
-        ];
-        $message = [
-            'required' => 'Ban can nhap truong :attribute nay!',
-            'min' => 'Ban can nhap truong :attribute nay du :min!',
-        ];
-        $request->validate($rule, $message);
         $data = [
             'department_id' => $request->department_id,
             'department_name' => $request->department_name,
             'descriptions' => $request->descriptions,
         ];
-        // dd($data);
-        $this->department->DepartmentCreate($data);
+        $request->validated();
+        $this->department->PostDepartment($data);
         return redirect()->route('getDepartment')->with('mess', "Add success Department!!");
     }
     function EditDepartment(Request $request)
@@ -53,13 +46,15 @@ class DeparmentController extends Controller
         $listDepartment = $this->department->DepartmentList();
         return view("DepartmentEdit", compact('listDepartment', 'getOne'));
     }
-    function UpdateDepartment(Request $request)
+    function UpdateDepartment(ValidateFormDepartment $request)
     {
         $data = [
             'department_id' => $request->department_id,
             'department_name' => $request->department_name,
             'descriptions' => $request->descriptions,
         ];
+        $request->validated();
+
         $this->department->UpdateDepartment($data, $request->id);
         return redirect()->route('getDepartment')->with('mess', "Update success Department!!");
     }
@@ -71,7 +66,6 @@ class DeparmentController extends Controller
             $this->department->DeleteDepartment($request->department_id);
             return back()->with('mess', "delelte Successs");
         } else {
-            // not Delete
             return back();
         }
     }

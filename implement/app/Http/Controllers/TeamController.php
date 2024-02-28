@@ -2,23 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Department;
-use App\Models\Teams;
+use App\Http\Requests\ValidateTeam;
+use App\Http\Services\DepartmentService;
+use App\Http\Services\TeamService as ServicesTeamService;
 use Illuminate\Http\Request;
-use PDO;
+
 
 class TeamController extends Controller
 {
     protected $team;
     protected $department;
-    function __construct()
+    function __construct(ServicesTeamService $TeamService, DepartmentService  $department)
     {
-        $this->team = new Teams();
-        $this->department = new Department();
+        $this->team =  $TeamService;
+        $this->department =  $department;
     }
+
     function TeamList(Request $request)
     {
-        $listTeam = $this->team->ListTeam();
+        $listTeam = $this->team->TeamList();
         $listDepartment = $this->department->DepartmentList();
         $getOneTeam = $this->team->GetOneTeam($request->id);
 
@@ -26,13 +28,13 @@ class TeamController extends Controller
     }
     function TeamCreate(Request $request)
     {
-        $listTeam = $this->team->ListTeam();
+        $listTeam = $this->team->TeamList();
         $listDepartment = $this->department->DepartmentList();
         $getOneTeam = $this->team->GetOneTeam($request->id);
 
         return view('pageTeams.TeamAdd', compact('listTeam', 'getOneTeam', 'listDepartment'));
     }
-    function TeamPost(Request $request)
+    function TeamPost(ValidateTeam $request)
     {
         $data = [
             'team_id' => $request->team_id,
@@ -40,36 +42,30 @@ class TeamController extends Controller
             'department_id' => $request->department_id,
         ];
 
-        $rule = [
-            'team_id' => 'required|min:2',
-            'team_name' => 'required|min:2',
-            'department_id' => 'required|min:2',
-        ];
-        $message = [
-            'required' => 'Ban can nhap truong :attribute nay!',
-            'min' => 'Ban can nhap truong :attribute nay du :min!',
-        ];
-        $request->validate($rule, $message);
+
+        $request->validated();
         // dd($data);
-        $this->team->PostTeam($data);
+        $this->team->TeamPost($data);
         return redirect()->route('TeamList')->with('mess', "Add team success!");
     }
 
     function TeamEdit(Request $request)
     {
-        $listTeam = $this->team->ListTeam();
+        $listTeam = $this->team->TeamList();
         $listDepartment = $this->department->DepartmentList();
         $getOneTeam = $this->team->GetOneTeam($request->id);
         return view('pageTeams.TeamEdit', compact('listTeam', 'getOneTeam', 'listDepartment'));
     }
-    function TeamUpdate(Request $request)
+    function TeamUpdate(ValidateTeam $request)
     {
         $data = [
             'team_id' => $request->team_id,
             'team_name' => $request->team_name,
             'department_id' => $request->department_id,
         ];
-        $this->team->UpdateTeam($request->team_id, $data);
+
+        $request->validated();
+        $this->team->TeamEdit($request->team_id, $data);
         return redirect()->route('TeamList')->with('mess', "Update success team!");
     }
     function TeamDelete(Request $request)

@@ -39,16 +39,17 @@
                     <div class="form-group">
                         <label for="exampleInputEmail1">ID_team</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            value="{{ isset($getOneTeam) ? $getOneTeam->team_id : '' }}" placeholder="Enter email"
+                            value="{{ isset($getOneTeam) ? $getOneTeam->team_id : '' }}" placeholder="Enter IDTeam"
                             name="team_id">
                     </div>
                     <div class="form-group">
                         <label for="exampleInputPassword1">Name_team</label>
-                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Password"
+                        <input type="text" class="form-control" id="exampleInputPassword1" placeholder="TeamName..."
                             value="{{ isset($getOneTeam) ? $getOneTeam->team_name : '' }}" name="team_name">
                     </div>
                     <div class="form-group">
-                        <select name="department_id" class="form-control" id="exampleInputPassword1">
+                        <select name="department_id" class="form-control" id="exampleInputPassword1">\
+
                             @if (isset($listDepartment))
                                 <option value="{{ isset($getOneTeam) ? $getOneTeam->department_id : '' }}">
                                     {{ isset($getOneTeam) ? $getOneTeam->department_id : '' }}</option>
@@ -58,7 +59,8 @@
                     <a href="{{ route('CreateTeam') }}" class="btn bg-primary text-white" href="">Add</a>
                     <a href="{{ route('editTeam', ['id' => isset($getOneTeam) ? $getOneTeam->team_id : '']) }}"
                         class="btn bg-primary text-white" href="">Edit</a>
-                    <button type="submit" onclick="return confirm('Ban co muon Delete Team nay khong?')" class="btn btn-primary">Delete</button>
+                    <button type="submit" onclick="return confirm('Have you delete team?')"
+                        class="btn btn-primary">Delete</button>
                 </form>
             </div>
         </div>
