@@ -11,9 +11,9 @@ use Illuminate\Http\Request;
 class DeparmentController extends Controller
 {
     protected $department;
-    function __construct(DepartmentService $department)
+    function __construct()
     {
-        $this->department =  $department;
+        $this->department =  new DepartmentService();
     }
     // List and create Department 
     function DepartmentList(Request $request)

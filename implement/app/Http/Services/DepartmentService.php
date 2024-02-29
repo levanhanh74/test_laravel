@@ -11,6 +11,7 @@ class DepartmentService
     // list all
     function DepartmentList()
     {
+        // return DB::table("department_tbs")->get();
         return  department_tb::all();
     }
     // post team
